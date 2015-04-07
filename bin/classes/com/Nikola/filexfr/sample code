@@ -1,0 +1,63 @@
+//			
+//			
+//			Log.i("XFR","out created");
+//			out.println("First line");
+//			Log.i("XFR","First line sent");
+//			out.println("2nd line");
+//			Log.i("XFR","2nd line sent");
+//			out.println("end");
+//			Log.i("XFR","end sent");
+//			
+//			//out.close();
+//			//BufferedReader in =new BufferedReader(new InputStreamReader(socket.getInputStream()));
+//			
+//		
+//			
+//			//File files = new File(parent.getFilesDir(), "recv.jpg");
+//				File files=new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),"recv.jpg");
+//			
+//			
+//	         Uri internal = Uri.fromFile(files);
+//	         
+//			//FileOutputStream file = parent.openFileOutput("recv.jpg", Context.MODE_WORLD_READABLE);
+//	         //FileOutputStream file = parent.openFileOutput(files.,Context.MODE_WORLD_READABLE);
+//	        
+//	         FileOutputStream file= new FileOutputStream(files);
+//	         Log.i("LINK RECV FILE",file.toString());
+//			
+//			byte[] buf = new byte[8192];
+//			int len = 0;
+//			int i=0;
+//			
+//			parent.runOnUiThread(new Runnable(){public void run(){parent.set_text("copping...");}});
+//			
+//			String line=null;
+//			while (((len = inPic.read(buf)) != -1)||(line=in.readLine()).equals("end")) {
+//				
+//				file.write(buf, 0, len);
+//				file.flush();
+//				System.out.println("While loop "+len+" "+i++ + line);
+//				
+//	        }
+//			
+//			Log.i("Link","Finish reciving pic");
+//			parent.runOnUiThread(new Runnable(){public void run(){parent.set_text("Finish reciving pic");}});
+//			
+//			InputStream picture = new FileInputStream(files);
+//			
+//			final Bitmap pic=BitmapFactory.decodeStream (picture, null, null);
+//			
+//			parent.runOnUiThread(new Runnable(){public void run(){parent.set_view(pic);}});
+//			Log.i("LOCATION",internal.toString());
+//			file.close();
+//			//inPic.close();
+//			
+//			
+//		
+//				
+//				out.println("3");
+//				out.println("end");
+//		
+//				
+//				
+//

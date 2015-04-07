@@ -1,0 +1,69 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/mainLayout"
+    tools:context="com.Nikola.filexfr.Transfer" >
+
+    <TextView
+        android:id="@+id/tw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:text="@string/hello_world" />
+    	
+    <ListView
+        android:id="@+id/rlistview"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@id/tw"
+        android:layout_marginBottom="80dp"
+
+        />
+    <LinearLayout
+        android:id="@+id/buttonsline"
+        android:layout_height="80dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        >
+        <Button
+            android:id="@+id/rff_refresh"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_gravity="start"
+        	android:gravity="bottom"
+        	android:background="@drawable/refresh"
+        	android:clickable="true"
+        />
+    	<Button
+    	    android:id="@+id/rff_download"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_gravity="center_horizontal"
+        	android:gravity="bottom"
+        	android:background="@drawable/download"
+        	android:clickable="true"
+        />
+    	<Button
+    	    android:id="@+id/rff_select_all"
+       	 	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_gravity="end"
+        	android:gravity="bottom"
+        	android:clickable="true"
+        	android:background="@drawable/select_all"
+        />
+    	<Button
+       	 	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_gravity="center_horizontal"
+        	android:onClick="exit"
+        	android:gravity="bottom"
+        	android:visibility="visible"
+        	android:background="@drawable/exit"
+        />
+    
+    </LinearLayout>
+    
+</RelativeLayout>

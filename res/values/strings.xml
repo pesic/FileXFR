@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">FileXFR</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+	<string name="select_all_button">Select\nAll</string>
+    <string name="refresh_button">REFRESH</string>
+    <string name="exit_button">EXIT</string>
+    <string name="download_button">DOWNLOAD</string>
+    <string name="tw_button1">Copy to Comp </string>
+    <string name="tw_button2">  Copy to Phone  </string>
+</resources>
