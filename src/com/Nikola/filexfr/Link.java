@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.net.ConnectException;
 import java.net.Socket;
 
 import android.os.AsyncTask;
@@ -31,6 +32,7 @@ public class Link extends AsyncTask<String,Void,String> {
 	InputStream istream;
 	PrintStream pstream;
 	String filename;
+	final int server_timeout=1500;
 	
 	public Link(Transfer p){
 		super();
@@ -83,18 +85,19 @@ public class Link extends AsyncTask<String,Void,String> {
 			
 			fi.write(buff, 0, le);
 			fi.flush();
-			//System.out.println("While loop "+le);
+			
 			
        }
 		fi.close();
 		
 		parent.runOnUiThread(new Runnable(){public void run(){parent.set_text("Transfer complete!");}});
-		 return "TEST";//it shuold return data n string
+		 
+		return "OK";//File received and stored in memory
 		
 		}catch(Exception e){
 			Log.e("receive_data",e.toString());
 			e.printStackTrace();
-			return null;
+			return "null";
 		}
 	}
 	
@@ -105,7 +108,7 @@ public class Link extends AsyncTask<String,Void,String> {
 		try{
 			
 			socket=new Socket(parent.SERVER_IP_ADDRESS,parent.RECEIVING_DATA_PORT);
-			
+			socket.setSoTimeout(server_timeout);
 			int phase=Integer.parseInt(params[0]);
 			
 			Log.i("XFR","socket created");
@@ -120,14 +123,18 @@ public class Link extends AsyncTask<String,Void,String> {
 				else return read_data(params[0]);
 			
 
-		}catch(Exception e){
+		}catch(ConnectException ce){
+			Log.e("Transfer","No response from server"+ce.toString());
+			ce.printStackTrace();		
+			return "SERVER ERROR";
+		}
+		catch(Exception e){
 			Log.e("Transfer","Cannot create socket"+e.toString());
 			e.printStackTrace();		
-			
+			return null;
 		}
 		
-		Log.i("Done doInBckg","done for item"+params[0]);
-		return null;
+		
 	}
 	
 	

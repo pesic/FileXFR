@@ -7,7 +7,9 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -77,11 +79,7 @@ public class Transfer extends Activity{
 		    		   selection[buttonView.getId()]=1;
 		    	   else selection[buttonView.getId()]=0;
 		       }
-		   };
-		     	
-		/*send request for folder content*/
-		 //new Link(this).execute("0");
-
+		   };     	
 		 
 		 /*FRAGMENT FOR SENDING FILES*/
 		 try{
@@ -97,7 +95,6 @@ public class Transfer extends Activity{
 			 System.exit(1);
 		 }
 		   
-		
 	}//onCrt
 	
 	/*creates new fragment to show folder content*/
@@ -212,6 +209,14 @@ public class Transfer extends Activity{
 public void set_sending_fragment(){
 	try{
 	 	
+		ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+		if (!mWifi.isConnected()) {
+		    Toast.makeText(this, "Please start WiFi and try again", Toast.LENGTH_LONG).show();
+		    return;
+		}
+		
 	 	FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		 
 	 	 //ReceivingFileFragment fragment = new ReceivingFileFragment(this);
@@ -227,8 +232,16 @@ public void set_sending_fragment(){
 }
 
 public void set_receiving_fragment(){
+	
 	try{
-	 	
+		
+		ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+		if (!mWifi.isConnected()) {
+		    Toast.makeText(this, "Please start WiFi and try again", Toast.LENGTH_LONG).show();
+		    return;
+		}
 	 	FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		 
 	 	 ReceivingFileFragment fragment = new ReceivingFileFragment(this);

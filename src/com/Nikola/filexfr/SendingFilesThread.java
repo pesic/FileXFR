@@ -7,9 +7,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.ConnectException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+
 import android.util.Log;
+import android.widget.Toast;
 
 public class SendingFilesThread implements Runnable{
 	
@@ -25,6 +28,7 @@ public class SendingFilesThread implements Runnable{
 	InetSocketAddress sockAdress;
 	PrintWriter pwriter;
 	BufferedReader breader;
+	final int server_timeout=1500;
 	
 	SendingFilesThread(Transfer p, String[] q){
 		try{
@@ -32,6 +36,7 @@ public class SendingFilesThread implements Runnable{
 			query=q;
 			
 			sockAdress=new  InetSocketAddress(parent.SERVER_IP_ADDRESS,parent.SENDING_DATA_PORT);
+			
 			Log.i("SFT constructor","DONE");
 		}catch(Exception e){
 			Log.e("SFT constructor error",e.toString());
@@ -50,7 +55,7 @@ public class SendingFilesThread implements Runnable{
 				/*port init*/
 				socket=new Socket();
 				socket.connect(sockAdress);
-				
+				socket.setSoTimeout(server_timeout);
 				breader=new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				OutputStream ostream=socket.getOutputStream();
 				pwriter=new PrintWriter(ostream);
@@ -89,6 +94,16 @@ public class SendingFilesThread implements Runnable{
 				socket.close();
 				
 			}//forEACHfileINquery
+			
+		}
+		catch(ConnectException ce){
+			Log.e("SFT connection error, cannot send files to server",ce.toString());
+			ce.printStackTrace();
+			parent.runOnUiThread(new Runnable() {
+			    public void run() {
+			        Toast.makeText(parent, "Cannot connect to server.\n Please check connection.",Toast.LENGTH_LONG).show();
+			    }
+			});
 			
 		}
 		catch(FileNotFoundException exc){

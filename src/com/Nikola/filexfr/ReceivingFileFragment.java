@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class ReceivingFileFragment extends Fragment{
 
@@ -28,7 +29,10 @@ public class ReceivingFileFragment extends Fragment{
 			link=new Link(parents);
 		
 			String list_of_files= link.execute("0").get();
-			if(list_of_files!=null){
+			
+			if(list_of_files.equals("SERVER ERROR")){
+				Toast.makeText(parents, "No response from server.\n Please check if server is started",Toast.LENGTH_LONG).show();
+			}else if(list_of_files!=null){
 				flist=new FileList(list_of_files.split("\\n"));
 			}else{
 				flist=null;

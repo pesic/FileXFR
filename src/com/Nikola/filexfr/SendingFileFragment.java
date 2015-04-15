@@ -96,7 +96,6 @@ public static final int MAX_NUMBER_OF_FILES=100;
 	         }
 	        listview.setAdapter(adapter);
 	        
-	    	//tw.setText(sb.toString());
 	    	return view;
 	        
 	    }
